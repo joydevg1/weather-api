@@ -30,7 +30,6 @@ import sys
 from pydantic import BaseModel
 from tensorflow.keras.models import load_model
 from fastapi import FastAPI, File, UploadFile, HTTPException
-from colabcode import ColabCode
 import pickle
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import UJSONResponse
