@@ -18,6 +18,6 @@ scikit-learn==0.22.2.post1
 scipy
 sklearn==0.0
 sklearn-pandas==1.8.0
-tensorflow==2.6.0
+tensorflow-cpu
 uvicorn==0.13.1
 uvloop==0.16.0
