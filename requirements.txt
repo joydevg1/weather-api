@@ -21,3 +21,4 @@ sklearn-pandas==1.8.0
 tensorflow-cpu
 uvicorn==0.13.1
 uvloop==0.16.0
+python-multipart
