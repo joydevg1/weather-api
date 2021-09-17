@@ -263,6 +263,9 @@ async def create_files(dateid: str):
     #dataframe.drop(dataframe.columns[0],axis=1,inplace=True)
     gc.collect()
     p_array, test_set1=FormatingCSVdata(dataframe)
+
+    del dataframe
+    gc.collect()
     #test_set1=test_set['New_Date'].loc[::-1].reset_index(drop = True)
     p_df = pd.DataFrame({'Summary': p_array[:, 0]})
     del p_array
