@@ -203,9 +203,12 @@ def FormatingCSVdata(data_neur2):
     test_set = data_neur2[train_days: train_days+testing_days].reset_index(drop=True)
     #print(test_set['Date'].max())
     #print(test_set['Date'].min())
+    del data_neur2
+    gc.collect()
     D=pd.to_datetime(test_set['Date'].max())-pd.to_datetime(test_set['Date'].min())
     c=int(D.days)+1
-    
+    del D
+    gc.collect()
     training_set = train_set.iloc[:, [1,2,3,4,5,6,7,12]].values
     testing_set = test_set.iloc[:, [1,2,3,4,5,6,7,12]].values
 
