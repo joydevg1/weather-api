@@ -154,6 +154,8 @@ def change_Pcategory(PrecipType):
     elif PrecipType=='NaN':
         return 3
 
+model =  keras.models.load_model("Model")
+
 app = FastAPI()
 
 #
@@ -247,11 +249,7 @@ class dataset(BaseModel):
 class Prediction(BaseModel):
   result: str
 
-#from json_response import JsonResponse
-@app.on_event("startup")
-def load_model():
-    global model
-    model =  keras.models.load_model("Model")
+
  
  
 @app.get('/')
