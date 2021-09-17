@@ -33,6 +33,7 @@ from PIL import Image
 from typing import List
 from typing import Optional
 import uvicorn
+import gc
 
 def change_Prediction(Predict):
     if Predict<=1:
@@ -260,14 +261,19 @@ def index():
 async def create_files(dateid: str):
     dataframe = pd.read_csv('Dataset/ProcessedWeatherHistory.csv')
     #dataframe.drop(dataframe.columns[0],axis=1,inplace=True)
+    gc.collect()
     p_array, test_set1=FormatingCSVdata(dataframe)
     #test_set1=test_set['New_Date'].loc[::-1].reset_index(drop = True)
     p_df = pd.DataFrame({'Summary': p_array[:, 0]})
+    del p_array
+    gc.collect()
     p_df['Summary']=p_df['Summary'].apply(change_Prediction)
     #vals = p_df['Summary'].tolist()
     result = p_df.to_json(orient="records")
     test_set1['New_Date']=test_set1['New_Date'].astype(str)
     result1 = pd.concat([test_set1, p_df], axis=1)
+    del test_set1
+    gc.collect()
     result1.sort_values(by='New_Date',inplace=True, ascending=True)
     result1.dropna(subset=['New_Date'],inplace=True)
     result1['Summary'].fillna(method='ffill', inplace=True)  
@@ -276,7 +282,8 @@ async def create_files(dateid: str):
     result2=result1.loc[result1['Date']==dateid, 'Summary']
     #date1 = test_set1.to_json(orient="records")
     result2 = result2.to_json(orient="records")
-    
+    del result1
+    gc.collect()
     print(result1.head())
     
     return {
